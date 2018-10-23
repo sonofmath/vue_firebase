@@ -2,19 +2,20 @@
 ### Built with Vue CLI 3 and Firebase/Firestore
 
 ## Steps
-First
+Vue First Steps
 ```
-vue init webpack fire-app
-cd fire-app
+vue init webpack projectname
+cd projectname
 npm run dev
 
 Check http://localhost:8080
 ```
-```
+### Firebase
 Open free Firebase account and start a new project
 Click "Add Firebase to your Web App"
 Copy the 'databaseURL' and the 'projectId'
-```
+
+### Vue
 Then run this inside your project
 ```
 npm install vuefire@next firebase --save
@@ -30,4 +31,30 @@ firebase.initializeApp({
   databaseURL: 'YOUR_DB_URL'
 })
 export const db = firebase.firestore()
+```
+## Firebase
+Then go into the Firebase console
+Navigate to Database -> Cloud Firestore ->Try Firestore Beta
+Select "test mode"
+Create a new collection and add a few fields then save
+
+## Vue
+In directory src/components open HelloWorld.vue
+Update the <script> tag with this code
+```
+import { db } from '../main'
+export default {
+  name: 'HelloWorld',
+  data () {
+    return {
+      <collection name>: []
+    }
+  },
+  firestore () {
+    return {
+      locations: db.collection('<field from collection').orderBy('<field 
+from collection>')
+    }
+  }
+}
 ```
