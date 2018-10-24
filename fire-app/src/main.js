@@ -6,6 +6,8 @@ import router from './router'
 import VueFire from 'vuefire'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 Vue.use(VueFire)
 firebase.initializeApp({
   projectId: 'premierfarms-98218',
