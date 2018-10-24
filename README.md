@@ -2,14 +2,18 @@
 ### Built with Vue CLI 3 and Firebase/Firestore
 
 ## Steps
+Install Vue
+```
+npm install -g @vue/cli
+```
 Vue First Steps
 ```
 vue init webpack projectname
 cd projectname
 npm run dev
-
-Check http://localhost:8080
 ```
+Check http://localhost:8080
+
 ### Firebase
 Open free Firebase account and start a new project
 Click "Add Firebase to your Web App"
@@ -32,7 +36,6 @@ firebase.initializeApp({
 })
 export const db = firebase.firestore()
 ```
-## Firebase
 Then go into the Firebase console
 Navigate to Database -> Cloud Firestore ->Try Firestore Beta
 Select "test mode"
@@ -52,9 +55,17 @@ export default {
   },
   firestore () {
     return {
-      locations: db.collection('<field from collection').orderBy('<field 
-from collection>')
+      locations: db.collection('<field>').orderBy('<field>')
     }
   }
 }
+```
+Next we jump up to the <template> tag and add
+```
+<div>
+  <article v-for="(location, idx) in <collection name>" :key="idx">
+    <img :src="location.image">
+    <h1>{{ location.name }}</h1>
+  </article>
+</div>
 ```
