@@ -23,7 +23,8 @@ Run this inside your project
 ```
 npm install vuefire@next firebase --save
 ```
-Open main.js and add this code to initialize Firebase
+Open main.js and add this code to initialize Firebase  
+In here you will need that 'projectId' and 'databaseURL'
 ```
 import VueFire from 'vuefire'
 import firebase from 'firebase/app'
@@ -38,7 +39,8 @@ export const db = firebase.firestore()
 Now open up the Firebase console  
 Navigate to Database -> Cloud Firestore ->Try Firestore Beta  
 Select "test mode"  
-Create a new collection and add a few fields then save  
+Create a new collection and add a few fields of your choosing, then save  
+I will reference these as <collection name> and <field>
 
 In directory src/components open HelloWorld.vue  
 Update the <script> tag with this code
@@ -58,12 +60,14 @@ export default {
   }
 }
 ```
-Next we jump up to the <template> tag and add
+Next jump up to the <template> tag and add
 ```
 <div>
   <article v-for="(location, idx) in <collection name>" :key="idx">
-    <img :src="location.image">
-    <h1>{{ location.name }}</h1>
+    <img :src="location.<field>">
+    <h1>{{ location.<field> }}</h1>
   </article>
 </div>
 ```
+It should now display whatever you put in your database  
+Try adding something to the database and watch it render automatically - pretty cool
