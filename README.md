@@ -74,4 +74,3 @@ It should now display whatever you put in your database
 Try adding something to the database and watch it render automatically - pretty cool
   
 ##### - Create and Delete steps coming soon -
-######  - fyi - they already exist in this repo if you are feeling motivated - in HelloWorld.vue -
