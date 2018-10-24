@@ -56,7 +56,7 @@ export default {
   },
   firestore () {
     return {
-      locations: db.collection('<field>').orderBy('<field>')
+      locations: db.collection('<collection name>').orderBy('<field>')
     }
   }
 }
