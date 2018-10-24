@@ -14,11 +14,12 @@ npm run dev
 ```
 Check http://localhost:8080
 
-### Firebase
+#### Firebase
+```
 Open free Firebase account and start a new project  
 Click "Add Firebase to your Web App"  
 Copy the 'databaseURL' and the 'projectId'  
-
+```
 Run this inside your project
 ```
 npm install vuefire@next firebase --save
