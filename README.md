@@ -72,3 +72,5 @@ Next jump up to the <template> tag and add
 ```
 It should now display whatever you put in your database  
 Try adding something to the database and watch it render automatically - pretty cool
+  
+##### Create and Delete coming soon
