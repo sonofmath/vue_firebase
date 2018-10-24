@@ -15,16 +15,15 @@ npm run dev
 Check http://localhost:8080
 
 ### Firebase
-Open free Firebase account and start a new project
-Click "Add Firebase to your Web App"
-Copy the 'databaseURL' and the 'projectId'
+Open free Firebase account and start a new project.
+Click "Add Firebase to your Web App".
+Copy the 'databaseURL' and the 'projectId'.
 
-### Vue
-Then run this inside your project
+Run this inside your project
 ```
 npm install vuefire@next firebase --save
 ```
-Finally we initialize Firestore. Open main.js and add this code
+Open main.js and add this code to initialize Firebase
 ```
 import VueFire from 'vuefire'
 import firebase from 'firebase/app'
@@ -36,12 +35,11 @@ firebase.initializeApp({
 })
 export const db = firebase.firestore()
 ```
-Then go into the Firebase console
-Navigate to Database -> Cloud Firestore ->Try Firestore Beta
-Select "test mode"
-Create a new collection and add a few fields then save
+Now open up the Firebase console.
+Navigate to Database -> Cloud Firestore ->Try Firestore Beta.
+Select "test mode".
+Create a new collection and add a few fields then save.
 
-## Vue
 In directory src/components open HelloWorld.vue
 Update the <script> tag with this code
 ```
