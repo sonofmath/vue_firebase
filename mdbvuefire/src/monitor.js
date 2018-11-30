@@ -15,4 +15,5 @@ ref.on('value', function(snap) {
     Info.time = snap.child('timestamp').val()
 })
 
+
 export default Info

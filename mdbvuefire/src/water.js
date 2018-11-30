@@ -7,12 +7,14 @@ class Result {
     }
 }
 
-let sensor = db.ref().child('wateralerts')
-sensor.orderByChild('dismissed').equalTo(0).on('child_added', function (snapshot) {
-    Result.dismissed = snapshot.child('dismissed').val()
-    Result.time = snapshot.child('timestamp').val()
-})
+function refresh(Result) {
+    let sensor = db.ref().child('wateralerts')
+    sensor.orderByChild('dismissed').equalTo(0).on('child_added', function (snapshot) {
+        Result.dismissed = snapshot.child('dismissed').val()
+        Result.time = snapshot.child('timestamp').val()
+    })
+    return Result
+}
 
 
-
-export default Result
+export default refresh(Result)

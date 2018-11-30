@@ -5,7 +5,7 @@
       <br>
       <div class="card text-center">
         <div class="card-header text-white bg-primary">
-          <h2>Current Conditions</h2>
+          <h2 id="test">Current Conditions</h2>
         </div>
         <div class="card-body ">
           <div class="row">
@@ -34,7 +34,9 @@
               </blockquote>
             </div>
             <h5 id='alarm'></h5>
-            <div id='buttonAppear'></div>
+            <div id='buttonAppear'>
+              <button type="button" class="btn btn-warning" @click="dismissAlert()">Dismiss</button>
+            </div>
             <table class="table table-striped">
                 <thead>
                 </thead>
@@ -75,6 +77,8 @@ var ref3 = db.ref('wateralerts')
 
 var alertStatus = "?"
 
+
+
 export default {
   name: 'app',
   methods: {
@@ -85,7 +89,9 @@ export default {
         data: chartData.data,
         options: chartData.options
       });
-    },
+    }
+  },
+  computed: {
     checkStatus() {
       db.ref('wateralerts').orderByChild('dismissed').equalTo(0).on('value', function(snapshot) {
         if(snapshot.exists()) {
@@ -93,24 +99,30 @@ export default {
           document.getElementById('badge').classList.add('badge-danger')
           document.getElementById('badge').classList.remove('badge-success')
           document.getElementById('alarm').innerHTML = "Water Detected"
-          document.getElementById("buttonAppear").innerHTML = '<button type="button" class="btn btn-warning" v-on:click="dismissAlert()">Dismiss</button>'
+          document.getElementById('buttonAppear').style.display = "block"
+          
+
+          //document.getElementById("buttonAppear").innerHTML = '<button type="button" class="btn btn-warning" @click="dismissAlert()">Dismiss</button>'
         }
         else {
           document.getElementById("badge").innerHTML = "In The Clear"
           document.getElementById('badge').classList.add('badge-success')
           document.getElementById('badge').classList.remove('badge-danger')
           document.getElementById('alarm').innerHTML = ""
-          document.getElementById("buttonAppear").innerHTML = ''
+          document.getElementById('buttonAppear').style.display = "none"
         }
+        this.$forceUpdate()
       });
     },
     dismissAlert() {
       var ref = db.ref().child('wateralerts')
       ref.orderByChild('dismissed').equalTo(0).once('value', function(snap) {
           snap.forEach(function(item) {
-            item.ref.update({ 'dismissed': '1' })
+            var key = item.key
+            ref.child(key).update({ "dismissed" : 1 })
           })
       })
+      this.$forceUpdate()
     }
   },
   data() {
@@ -123,7 +135,7 @@ export default {
     }
   },
   mounted() {
-    this.createChart('temp-chart', this.ChartData)
+    this.createChart('temp-chart', this.ChartData),
     this.checkStatus()
   },
   firebase: {
