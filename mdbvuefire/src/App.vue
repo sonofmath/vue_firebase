@@ -8,6 +8,8 @@
           <h2 id="test">Current Conditions</h2>
         </div>
         <div class="card-body ">
+          <div id='showData'>
+          </div>
           <div class="row">
             <div class="col-sm-6">
               <div class="card">
@@ -68,27 +70,39 @@
 import ChartData from './chart-data.js'
 import Chart from 'chart.js'
 import Info from './monitor.js'
-import Result from './water.js'
 import { db } from './config/db'
 
 var ref = db.ref('templogs')
 var ref2 = db.ref('currenttemp')
 var ref3 = db.ref('wateralerts')
 
-var alertStatus = "?"
-
-
-
 export default {
   name: 'app',
   methods: {
     createChart(chartId, chartData) {
+      var tempArray = []
+      var humidityArray = []
+      var timeArray = []
+
+      var ref = db.ref().child('templogs').orderByChild('timestamp')
+      ref.on('value', function(snap) {
+          snap.forEach(function(item) {
+              var tempVal = item.child('temp').val()
+              var humidVal = item.child('humid').val()
+              var timeVal = item.child('timestamp').val()
+              tempArray.push(tempVal)
+              humidityArray.push(humidVal)
+              timeArray.push(timeVal)
+          })
+      })
+
       const ctx = document.getElementById(chartId)
       const myChart = new Chart(ctx, {
         type: chartData.type,
         data: chartData.data,
         options: chartData.options
       });
+      return myChart
     }
   },
   computed: {
@@ -100,9 +114,6 @@ export default {
           document.getElementById('badge').classList.remove('badge-success')
           document.getElementById('alarm').innerHTML = "Water Detected"
           document.getElementById('buttonAppear').style.display = "block"
-          
-
-          //document.getElementById("buttonAppear").innerHTML = '<button type="button" class="btn btn-warning" @click="dismissAlert()">Dismiss</button>'
         }
         else {
           document.getElementById("badge").innerHTML = "In The Clear"
@@ -113,6 +124,7 @@ export default {
         }
         this.$forceUpdate()
       });
+      return 0
     },
     dismissAlert() {
       var ref = db.ref().child('wateralerts')
@@ -123,20 +135,34 @@ export default {
           })
       })
       this.$forceUpdate()
+      return 0
+    },
+    showData() {
+      var num = 0
+      var ref = db.ref().child('wateralerts')
+      ref.once('value', function(snap) {
+        num = snap.numChildren()
+        if(num > 0) {
+          var days = num/24
+          document.getElementById('showData').innerHTML = "Logs for the past " + days + "days"
+        }
+        this.num = snap.numChildren()
+      })
+      this.$forceUpdate()
+      return 0
     }
   },
   data() {
     return {
       ChartData: ChartData,
       Info: Info,
-      Result: Result,
-      Alert: alertStatus,
       TheGoods: ref3
     }
   },
   mounted() {
     this.createChart('temp-chart', this.ChartData),
-    this.checkStatus()
+    this.checkStatus(),
+    this.showData()
   },
   firebase: {
     tempData: ref,

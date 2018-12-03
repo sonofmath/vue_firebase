@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <canvas id="planet-chart"></canvas>
   </div>
 </template>
 
