@@ -1,29 +1,6 @@
-# mdbvuefire
+# Temperature and Humidity Data and Chart - Also Including a Water Monitor
 
-## Project setup
+### Methods
 ```
-yarn install
+Built with Vue.js and Firebase Realtime Database
 ```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
